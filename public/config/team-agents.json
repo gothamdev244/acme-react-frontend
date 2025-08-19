@@ -1,0 +1,75 @@
+{
+  "agents": [
+    {
+      "id": "1",
+      "name": "Sarah Thompson",
+      "role": "call",
+      "status": "busy",
+      "currentCustomer": "Jennifer Liu",
+      "callDuration": 325,
+      "performance": {
+        "callsToday": 12,
+        "avgHandleTime": 180,
+        "satisfaction": 94
+      }
+    },
+    {
+      "id": "2",
+      "name": "Emily Rodriguez",
+      "role": "chat",
+      "status": "busy",
+      "currentCustomer": "Robert Johnson",
+      "performance": {
+        "callsToday": 18,
+        "avgHandleTime": 120,
+        "satisfaction": 92
+      }
+    },
+    {
+      "id": "3",
+      "name": "Michael Chen",
+      "role": "call",
+      "status": "available",
+      "performance": {
+        "callsToday": 8,
+        "avgHandleTime": 200,
+        "satisfaction": 88
+      }
+    },
+    {
+      "id": "4",
+      "name": "David Wilson",
+      "role": "chat",
+      "status": "break",
+      "performance": {
+        "callsToday": 15,
+        "avgHandleTime": 150,
+        "satisfaction": 95
+      }
+    },
+    {
+      "id": "5",
+      "name": "Lisa Anderson",
+      "role": "call",
+      "status": "busy",
+      "currentCustomer": "Sophie Anderson",
+      "callDuration": 180,
+      "performance": {
+        "callsToday": 10,
+        "avgHandleTime": 190,
+        "satisfaction": 91
+      }
+    },
+    {
+      "id": "6",
+      "name": "James Martinez",
+      "role": "chat",
+      "status": "available",
+      "performance": {
+        "callsToday": 20,
+        "avgHandleTime": 130,
+        "satisfaction": 93
+      }
+    }
+  ]
+}

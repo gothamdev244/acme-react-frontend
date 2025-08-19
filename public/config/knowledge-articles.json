@@ -1,0 +1,81 @@
+{
+  "knowledgeArticles": [
+    {
+      "id": "kb-001",
+      "title": "Querying recurring or continuous day loan transactions on a Credit Card",
+      "category": "Credit Cards",
+      "relevance": 95,
+      "excerpt": "This procedure helps establish if a transaction is a recurring transaction or a day loan transaction...",
+      "url": "/kb/recurring-transactions",
+      "content": "Step-by-step guide for identifying and handling recurring transactions on credit cards.",
+      "lastUpdated": "2024-08-01",
+      "tags": ["credit cards", "recurring payments", "transactions"]
+    },
+    {
+      "id": "kb-002",
+      "title": "How to cancel recurring transactions",
+      "category": "Payments",
+      "relevance": 87,
+      "excerpt": "Step-by-step guide to cancelling continuous payment authorities and subscriptions...",
+      "url": "/kb/cancel-recurring",
+      "content": "Detailed process for helping customers cancel unwanted recurring payments.",
+      "lastUpdated": "2024-07-28",
+      "tags": ["payments", "cancellation", "subscriptions"]
+    },
+    {
+      "id": "kb-003",
+      "title": "Credit card dispute process",
+      "category": "Disputes",
+      "relevance": 72,
+      "excerpt": "Process for disputing unauthorized or incorrect credit card transactions...",
+      "url": "/kb/dispute-process",
+      "content": "Complete guide for handling credit card disputes and chargebacks.",
+      "lastUpdated": "2024-07-25",
+      "tags": ["disputes", "chargebacks", "unauthorized transactions"]
+    },
+    {
+      "id": "kb-004",
+      "title": "Setting up transaction alerts",
+      "category": "Security",
+      "relevance": 68,
+      "excerpt": "How to configure SMS and email alerts for card transactions...",
+      "url": "/kb/transaction-alerts",
+      "content": "Guide for setting up various types of transaction notifications.",
+      "lastUpdated": "2024-08-05",
+      "tags": ["alerts", "notifications", "security"]
+    },
+    {
+      "id": "kb-005",
+      "title": "Account upgrade procedures",
+      "category": "Account Management",
+      "relevance": 80,
+      "excerpt": "Process for upgrading customer accounts to higher tiers...",
+      "url": "/kb/account-upgrade",
+      "content": "Step-by-step process for account tier upgrades and eligibility requirements.",
+      "lastUpdated": "2024-08-10",
+      "tags": ["account management", "upgrades", "tiers"]
+    },
+    {
+      "id": "kb-006",
+      "title": "International transfer limits and fees",
+      "category": "International Banking",
+      "relevance": 75,
+      "excerpt": "Information about international transfer limits, fees, and processing times...",
+      "url": "/kb/international-transfers",
+      "content": "Comprehensive guide to international banking services and fees.",
+      "lastUpdated": "2024-08-08",
+      "tags": ["international banking", "transfers", "fees"]
+    }
+  ],
+  "categories": [
+    "Credit Cards",
+    "Payments",
+    "Disputes",
+    "Security",
+    "Account Management",
+    "International Banking",
+    "Loans",
+    "Investments",
+    "Mobile Banking"
+  ]
+}

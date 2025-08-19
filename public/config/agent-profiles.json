@@ -1,0 +1,58 @@
+{
+  "agentProfiles": {
+    "agent-001": {
+      "agentName": "Sarah Mitchell",
+      "department": "Premier Banking",
+      "agentId": "HSB-001",
+      "specialization": "High-net-worth customer service",
+      "languages": ["English", "French"],
+      "experience": "5 years",
+      "certifications": ["Financial Planning", "Investment Advisory"]
+    },
+    "agent-002": {
+      "agentName": "David Chen",
+      "department": "Business Banking",
+      "agentId": "HSB-002",
+      "specialization": "Corporate accounts and business loans",
+      "languages": ["English", "Mandarin"],
+      "experience": "7 years",
+      "certifications": ["Business Analysis", "Risk Assessment"]
+    },
+    "agent-003": {
+      "agentName": "Emma Thompson",
+      "department": "Wealth Management",
+      "agentId": "HSB-003",
+      "specialization": "Investment portfolio management",
+      "languages": ["English", "German"],
+      "experience": "10 years",
+      "certifications": ["CFA", "Wealth Management"]
+    },
+    "agent-004": {
+      "agentName": "Michael Rodriguez",
+      "department": "Fraud Prevention",
+      "agentId": "HSB-004",
+      "specialization": "Security and fraud detection",
+      "languages": ["English", "Spanish"],
+      "experience": "6 years",
+      "certifications": ["Cybersecurity", "Fraud Investigation"]
+    },
+    "agent-005": {
+      "agentName": "Lisa Anderson",
+      "department": "Customer Support",
+      "agentId": "HSB-005",
+      "specialization": "General customer service",
+      "languages": ["English"],
+      "experience": "3 years",
+      "certifications": ["Customer Service Excellence"]
+    }
+  },
+  "defaultAgent": {
+    "agentName": "HSBC Agent",
+    "department": "Customer Service",
+    "agentId": "HSB-000",
+    "specialization": "General customer service",
+    "languages": ["English"],
+    "experience": "1 year",
+    "certifications": ["Basic Customer Service"]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "templates": [
+    {
+      "id": "1",
+      "title": "Welcome Greeting",
+      "content": "Hello! Welcome to HSBC. I'm here to help you today. How may I assist you?",
+      "category": "greeting",
+      "usage": 45,
+      "favorite": true
+    },
+    {
+      "id": "2",
+      "title": "Account Balance",
+      "content": "I can help you check your account balance. For security purposes, could you please provide your account number?",
+      "category": "account",
+      "usage": 32,
+      "favorite": false
+    },
+    {
+      "id": "3",
+      "title": "Password Reset",
+      "content": "I'll help you reset your password. For security, I'll need to verify your identity first. Can you confirm your full name and date of birth?",
+      "category": "technical",
+      "usage": 28,
+      "favorite": true
+    },
+    {
+      "id": "4",
+      "title": "Transfer Information",
+      "content": "To process your transfer, I'll need the recipient's account details and the amount you'd like to send. What's the destination account?",
+      "category": "account",
+      "usage": 18,
+      "favorite": false
+    },
+    {
+      "id": "5",
+      "title": "Technical Issue",
+      "content": "I understand you're experiencing technical difficulties. Let me help troubleshoot this for you. Can you describe what exactly is happening?",
+      "category": "technical",
+      "usage": 15,
+      "favorite": false
+    },
+    {
+      "id": "6",
+      "title": "Closing - Resolved",
+      "content": "I'm glad I could help resolve your issue today. Is there anything else I can assist you with before we end this chat?",
+      "category": "closing",
+      "usage": 41,
+      "favorite": true
+    }
+  ]
+}

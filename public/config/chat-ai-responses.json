@@ -1,0 +1,293 @@
+{
+  "personalityResponses": {
+    "frustrated": {
+      "greeting": [
+        "Finally! I've been waiting forever. This better not take long.",
+        "About time! I've been having this issue for days.",
+        "I hope you can actually help me, unlike the last person I talked to.",
+        "This is really frustrating. I shouldn't have to wait this long for help."
+      ],
+      "clarification": [
+        "I already explained this! Weren't you listening?",
+        "Do I really have to repeat everything again?",
+        "This is exactly what I told the last agent. Can't you see my account?",
+        "I don't have time to go through all this again."
+      ],
+      "solution_positive": [
+        "Finally! That's what I needed. Why couldn't the other agent do this?",
+        "Good. That should have been done from the start.",
+        "Thank you. I hope this doesn't happen again.",
+        "Alright, that works. But this whole process was way too complicated."
+      ],
+      "solution_negative": [
+        "That doesn't make any sense! Why is it so complicated?",
+        "This is ridiculous. There has to be a better way.",
+        "I'm not satisfied with that answer. I want to speak to a manager.",
+        "This is unacceptable. I'm considering switching banks."
+      ]
+    },
+    "polite": {
+      "greeting": [
+        "Hello, thank you for helping me today. I appreciate your time.",
+        "Hi there, I hope you're having a good day. I need some assistance please.",
+        "Good morning/afternoon, thank you for connecting with me.",
+        "Hello, I'm hoping you can help me with an issue I'm having."
+      ],
+      "clarification": [
+        "Of course, let me provide more details about that.",
+        "Sure, I'd be happy to clarify that for you.",
+        "Absolutely, here's more information about my situation.",
+        "Certainly, let me explain that better."
+      ],
+      "solution_positive": [
+        "That's perfect, thank you so much for your help!",
+        "Wonderful! I really appreciate you taking the time to resolve this.",
+        "That's exactly what I needed. Thank you for being so helpful.",
+        "Great! You've been very professional and helpful throughout this."
+      ],
+      "solution_negative": [
+        "I understand, but is there perhaps another option we could explore?",
+        "I see. While that's not ideal, I appreciate you explaining the situation.",
+        "That's disappointing, but I understand the limitations. Thank you for trying.",
+        "I was hoping for a different outcome, but I understand your position."
+      ]
+    },
+    "confused": {
+      "greeting": [
+        "Hi, I'm not really sure what's going on with my account. Can you help?",
+        "Hello, I'm a bit confused about something and hoping you can explain it to me.",
+        "Hi there, I don't understand what happened and I'm hoping you can help me figure it out.",
+        "Good morning/afternoon, I'm not sure I understand what's going on."
+      ],
+      "clarification": [
+        "I'm sorry, I don't really understand. Can you explain that differently?",
+        "Could you walk me through that step by step? I'm not following.",
+        "I'm not sure what you mean by that. Could you explain it in simpler terms?",
+        "I'm lost. Can you help me understand what that means?"
+      ],
+      "solution_positive": [
+        "Oh, I see now! That makes much more sense. Thank you for explaining.",
+        "Ah, okay! I understand now. That's really helpful.",
+        "That clears it up for me. Thank you for being so patient with my questions.",
+        "Now I get it! Thank you for taking the time to explain everything."
+      ],
+      "solution_negative": [
+        "I still don't really understand why this is happening. Is there someone else who can help?",
+        "This is all very confusing to me. Maybe I should come into a branch?",
+        "I'm still not clear on this. Could you maybe have someone call me?",
+        "This is too complicated for me to understand. What should I do?"
+      ]
+    },
+    "impatient": {
+      "greeting": [
+        "Hi, I need this resolved quickly. I don't have much time.",
+        "Hello, I need to get this sorted out fast. What do you need from me?",
+        "I'm in a hurry, can we please get this fixed right away?",
+        "Hi, I need this handled immediately. Can you help me now?"
+      ],
+      "clarification": [
+        "Can we speed this up? I already gave you the information.",
+        "Look, I don't have time for all these questions. Just fix it.",
+        "Do we really need to go through all of this? Can't you just see what's wrong?",
+        "I'm running late. Can you please just tell me what I need to do?"
+      ],
+      "solution_positive": [
+        "Good! That's what I needed. Thanks for getting it done quickly.",
+        "Perfect. Finally! Thank you for resolving this fast.",
+        "Great, that's sorted. I appreciate you handling this promptly.",
+        "Excellent! That's exactly what I needed. Thanks for being efficient."
+      ],
+      "solution_negative": [
+        "This is taking too long. I need a faster solution.",
+        "I don't have time for this. Can you escalate it to someone who can fix it?",
+        "This is wasting my time. There has to be a quicker way.",
+        "I can't wait any longer. I'll have to handle this some other way."
+      ]
+    },
+    "friendly": {
+      "greeting": [
+        "Hi there! Hope you're having a great day. I could use some help with something.",
+        "Hello! Thanks for taking my call. I've got a quick question for you.",
+        "Hi! I'm sure you can help me sort this out. You seem very knowledgeable.",
+        "Good morning/afternoon! I love the service here. Could you help me with something?"
+      ],
+      "clarification": [
+        "Oh absolutely! I'd be happy to give you more details about that.",
+        "Sure thing! Let me explain that a bit better for you.",
+        "Of course! I should have been clearer about that from the start.",
+        "No problem at all! Here's what's been happening with my account."
+      ],
+      "solution_positive": [
+        "That's fantastic! You've been incredibly helpful. Thank you so much!",
+        "Perfect! I really appreciate how friendly and professional you've been.",
+        "Amazing! You made that look so easy. Thanks for all your help!",
+        "Wonderful! You're the best. Thank you for sorting that out for me."
+      ],
+      "solution_negative": [
+        "Oh well, that's okay! I understand these things happen sometimes.",
+        "No worries at all! I appreciate you trying your best to help me.",
+        "That's alright! Maybe we can try again another time. Thanks anyway!",
+        "I understand! You've been very helpful despite not being able to fix it."
+      ]
+    }
+  },
+  "issueResponses": {
+    "account": {
+      "details": [
+        "It happened around [time] and I noticed it when I checked my balance online.",
+        "I've been monitoring my account daily and this just appeared yesterday.",
+        "The transaction shows up as [amount] on [date] but I have no record of it.",
+        "I checked my statements and this discrepancy goes back about a week."
+      ],
+      "resolution_request": [
+        "Can you please reverse this transaction?",
+        "I need this fixed as soon as possible for my records.",
+        "Will this affect my other automatic payments?",
+        "How long will it take to show the correct balance?"
+      ]
+    },
+    "payments": {
+      "details": [
+        "The payment was supposed to go through on [date] but it's still pending.",
+        "I have confirmation number [number] but the payment failed.",
+        "This is affecting my credit score if payments are late.",
+        "I set this up exactly like I always do, but something went wrong."
+      ],
+      "resolution_request": [
+        "Can you process this payment manually?",
+        "I need to make sure this goes through today to avoid late fees.",
+        "Will you waive any late charges since this was a system error?",
+        "How can I prevent this from happening again?"
+      ]
+    },
+    "loans": {
+      "details": [
+        "My loan number is [number] and the payment date is usually the [date].",
+        "I've been making payments on time for [years] without any issues.",
+        "This affects my monthly budget planning significantly.",
+        "I received a notice but I don't understand what it means."
+      ],
+      "resolution_request": [
+        "Can you update my payment schedule?",
+        "I need to understand all my options before deciding.",
+        "Will this change affect my interest rate?",
+        "How will this impact my loan terms?"
+      ]
+    },
+    "technical": {
+      "details": [
+        "I tried clearing my browser cache and cookies but it still doesn't work.",
+        "The error message says [error] but I don't know what that means.",
+        "It was working fine yesterday and I haven't changed anything.",
+        "I've tried on both my phone and computer with the same problem."
+      ],
+      "resolution_request": [
+        "Can you reset something on your end?",
+        "Is this a known issue that you're working on?",
+        "Do I need to update my app or browser?",
+        "How long until this gets fixed?"
+      ]
+    },
+    "cards": {
+      "details": [
+        "My card number ends in [number] and expires [date].",
+        "I used the card successfully yesterday at [location].",
+        "I haven't reported it lost or stolen, so I'm not sure why it's not working.",
+        "The transaction amount was [amount] at [merchant]."
+      ],
+      "resolution_request": [
+        "Can you unlock my card right now?",
+        "Do I need to get a replacement card?",
+        "Will the new card have the same number?",
+        "How long will shipping take?"
+      ]
+    },
+    "general": {
+      "details": [
+        "I've been a customer for [years] and never had this issue before.",
+        "This is really important for my [business/personal] finances.",
+        "I tried calling but the wait time was too long.",
+        "Your website says one thing but I'm experiencing something different."
+      ],
+      "resolution_request": [
+        "What are my options here?",
+        "Can you escalate this to someone who can help?",
+        "Is there any documentation you can send me?",
+        "What's the best way to prevent this in the future?"
+      ]
+    }
+  },
+  "stageResponses": {
+    "greeting": "initial_greeting",
+    "problem_identification": "providing_details",
+    "troubleshooting": "working_through_solution",
+    "resolution": "accepting_solution",
+    "closing": "ending_conversation"
+  },
+  "closingResponses": [
+    "Perfect! Thank you so much for your help today.",
+    "Great, that's all I needed. I appreciate your assistance.",
+    "That solves my problem. Thanks for being so helpful!",
+    "Excellent! You've been very helpful. Have a great day!",
+    "That's exactly what I needed. Thank you for your time."
+  ],
+  "thankYouMessages": {
+    "frustrated": [
+      "Alright, thanks for finally getting that sorted out.",
+      "Good. I hope this doesn't happen again. Thanks.",
+      "Fine. Thanks for resolving it, though it took longer than it should have."
+    ],
+    "polite": [
+      "Thank you so much for your help today. I really appreciate your time and patience.",
+      "That was exactly what I needed. Thank you for being so professional and helpful.",
+      "Perfect! Thank you for taking care of this so efficiently."
+    ],
+    "confused": [
+      "Okay, I think I understand now. Thank you for explaining everything so clearly.",
+      "That makes sense now. Thank you for being so patient with all my questions.",
+      "Great! Thanks for helping me figure this out."
+    ],
+    "impatient": [
+      "Perfect! Thanks for getting this done quickly.",
+      "Good, that's what I needed. Thanks for handling it fast.",
+      "Excellent! Thanks for resolving this promptly."
+    ],
+    "friendly": [
+      "You've been absolutely wonderful! Thank you so much for all your help today!",
+      "That's perfect! You guys always provide such great service. Thanks a million!",
+      "Fantastic! Thank you for being so helpful and friendly throughout this whole process!"
+    ]
+  },
+  "responseDelays": {
+    "frustrated": {
+      "base": 1500,
+      "variation": 500
+    },
+    "impatient": {
+      "base": 1500,
+      "variation": 300
+    },
+    "polite": {
+      "base": 1500,
+      "variation": 1500
+    },
+    "confused": {
+      "base": 1500,
+      "variation": 2000
+    },
+    "friendly": {
+      "base": 1500,
+      "variation": 1000
+    }
+  },
+  "variables": {
+    "[time]": "dynamic_time",
+    "[date]": "dynamic_date",
+    "[amount]": "dynamic_amount",
+    "[number]": "dynamic_number",
+    "[location]": ["the grocery store", "a gas station", "Target", "Amazon", "the mall"],
+    "[merchant]": ["Amazon", "Walmart", "Target", "Starbucks", "Shell Gas"],
+    "[years]": "dynamic_years",
+    "[error]": "Error Code 500: Internal Server Error"
+  }
+}

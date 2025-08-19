@@ -1,0 +1,128 @@
+{
+  "interactionTemplates": [
+    {
+      "id": "int-active",
+      "type": "call",
+      "title": "Active call in progress",
+      "status": "active",
+      "date": null,
+      "details": "Current conversation with customer regarding their inquiry.",
+      "icon": "PhoneCall",
+      "duration": null,
+      "priority": "normal"
+    },
+    {
+      "id": "int-001",
+      "type": "chat",
+      "title": "Overseas withdrawal inquiry",
+      "status": "completed",
+      "date": "Jul 25 2025 14:23",
+      "details": "Customer requested information about overseas withdrawal limits and fees. Provided standard rates and enabled travel notification.",
+      "icon": "MessageSquare",
+      "duration": "12 minutes",
+      "priority": "low"
+    },
+    {
+      "id": "int-002",
+      "type": "call",
+      "title": "Card replacement request",
+      "status": "completed",
+      "date": "Jul 18 2025 10:15",
+      "details": "Customer reported damaged card. Ordered replacement card with expedited delivery.",
+      "icon": "PhoneCall",
+      "duration": "8 minutes",
+      "priority": "high"
+    },
+    {
+      "id": "int-003",
+      "type": "transaction",
+      "title": "Large purchase authorization",
+      "status": "completed",
+      "date": "Jul 10 2025 16:45",
+      "details": "Authorized large purchase of £2,500 at electronics store after security verification.",
+      "icon": "CreditCard",
+      "duration": "5 minutes",
+      "priority": "medium"
+    },
+    {
+      "id": "int-004",
+      "type": "email",
+      "title": "Account statement request",
+      "status": "completed",
+      "date": "Jul 05 2025 09:30",
+      "details": "Customer requested electronic statements for the past 6 months. Sent via secure email.",
+      "icon": "Mail",
+      "duration": "3 minutes",
+      "priority": "low"
+    },
+    {
+      "id": "int-005",
+      "type": "call",
+      "title": "Investment consultation",
+      "status": "completed",
+      "date": "Jun 28 2025 15:20",
+      "details": "Discussed investment options for ISA contribution. Scheduled follow-up meeting with wealth advisor.",
+      "icon": "PhoneCall",
+      "duration": "25 minutes",
+      "priority": "medium"
+    }
+  ],
+  "interactionTypes": [
+    {
+      "type": "call",
+      "icon": "PhoneCall",
+      "label": "Phone Call",
+      "color": "blue"
+    },
+    {
+      "type": "chat",
+      "icon": "MessageSquare",
+      "label": "Live Chat",
+      "color": "green"
+    },
+    {
+      "type": "email",
+      "icon": "Mail",
+      "label": "Email",
+      "color": "purple"
+    },
+    {
+      "type": "transaction",
+      "icon": "CreditCard",
+      "label": "Transaction",
+      "color": "orange"
+    },
+    {
+      "type": "branch",
+      "icon": "MapPin",
+      "label": "Branch Visit",
+      "color": "red"
+    }
+  ],
+  "statusTypes": [
+    {
+      "status": "active",
+      "label": "Active",
+      "color": "green",
+      "description": "Currently in progress"
+    },
+    {
+      "status": "completed",
+      "label": "Completed",
+      "color": "blue",
+      "description": "Successfully resolved"
+    },
+    {
+      "status": "pending",
+      "label": "Pending",
+      "color": "yellow",
+      "description": "Awaiting action"
+    },
+    {
+      "status": "escalated",
+      "label": "Escalated",
+      "color": "red",
+      "description": "Escalated to supervisor"
+    }
+  ]
+}
