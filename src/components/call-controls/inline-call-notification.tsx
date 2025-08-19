@@ -160,12 +160,10 @@ export function InlineCallNotification({}: InlineCallNotificationProps) {
     // Clear all data AFTER disconnect to ensure clean state
     setTimeout(() => {
       clearActions.clearSentiment()
-      clearActions.clearSummary()
       clearActions.clearIntent()
       clearActions.clearActions()
       clearActions.clearTranscript()
       clearActions.clearCustomer()
-      clearActions.clearMetrics()
       clearActions.clearKnowledgeArticles()
       updatePriority(undefined)
       updateAgentData({ queuePosition: undefined })

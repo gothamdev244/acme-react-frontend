@@ -78,31 +78,31 @@ const createDefaultConfig = (): AppConfig => ({
   
   services: {
     websocket: {
-      baseUrl: getEnvVar('WEBSOCKET_BASE_URL', 'ws://localhost'),
+      baseUrl: getEnvVar('WEBSOCKET_BASE_URL', getEnvVar('VITE_WEBSOCKET_BASE_URL', '')),
       path: getEnvVar('WEBSOCKET_PATH', '/ws'),
       callCenterPath: getEnvVar('WEBSOCKET_CALL_CENTER_PATH', '/ws/call-center'),
       defaultPort: getEnvNumber('WEBSOCKET_PORT', 8080)
     },
     
     aiService: {
-      baseUrl: getEnvVar('AI_SERVICE_BASE_URL', 'http://localhost:8000'),
+      baseUrl: getEnvVar('AI_SERVICE_BASE_URL', getEnvVar('VITE_AI_SERVICE_BASE_URL', '')),
       stopCallPath: getEnvVar('AI_SERVICE_STOP_CALL_PATH', '/api/calls/stop')
     },
     
     searchService: {
-      baseUrl: getEnvVar('SEARCH_SERVICE_BASE_URL', 'http://localhost:8081'),
+      baseUrl: getEnvVar('SEARCH_SERVICE_BASE_URL', getEnvVar('VITE_SEARCH_SERVICE_BASE_URL', '')),
       embeddedAppsPath: getEnvVar('SEARCH_EMBEDDED_APPS_PATH', '/api/embedded-apps/search'),
       documentsPath: getEnvVar('SEARCH_DOCUMENTS_PATH', '/api/documents/search')
     },
     
     gatewayService: {
-      baseUrl: getEnvVar('GATEWAY_SERVICE_BASE_URL', 'http://localhost:8080'),
+      baseUrl: getEnvVar('GATEWAY_SERVICE_BASE_URL', getEnvVar('VITE_GATEWAY_SERVICE_BASE_URL', '')),
       healthPath: getEnvVar('GATEWAY_HEALTH_PATH', '/health'),
       metricsPath: getEnvVar('GATEWAY_METRICS_PATH', '/metrics')
     },
     
     knowledgePortal: {
-      baseUrl: getEnvVar('KNOWLEDGE_PORTAL_BASE_URL', 'http://localhost:3001'),
+      baseUrl: getEnvVar('KNOWLEDGE_PORTAL_BASE_URL', getEnvVar('VITE_KNOWLEDGE_PORTAL_BASE_URL', '')),
       articlesPath: getEnvVar('KNOWLEDGE_ARTICLES_PATH', '/api/articles')
     }
   },

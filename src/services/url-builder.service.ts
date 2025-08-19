@@ -36,8 +36,8 @@ export interface AppUrlConfig {
   }
 }
 
-// Base URL for embedded apps - use environment variable with fallback
-const EMBEDDED_APP_BASE_URL = import.meta.env.VITE_EMBEDDED_APP_URL || 'http://localhost:5175'
+// Base URL for embedded apps - use environment variable
+const EMBEDDED_APP_BASE_URL = import.meta.env.VITE_EMBEDDED_APP_URL || ''
 
 // Configuration for each embedded app
 // In production, this would come from a configuration service
@@ -424,7 +424,7 @@ export function extractAppKeyFromUrl(url: string): string {
   }
   
   // Try to extract from query parameters
-  const urlObj = new URL(url, 'http://localhost')
+  const urlObj = new URL(url, window.location.origin)
   const appKey = urlObj.searchParams.get('appKey')
   if (appKey) {
     return appKey

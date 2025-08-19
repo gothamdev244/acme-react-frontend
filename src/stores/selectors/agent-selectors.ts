@@ -42,14 +42,6 @@ export const useActions = () =>
 export const usePriority = () => 
   useAgentStore(state => state.agentData.priority)
 
-// Summary selector
-export const useSummary = () => 
-  useAgentStore(state => state.agentData.summary)
-
-// Metrics selector
-export const useMetrics = () => 
-  useAgentStore(state => state.agentData.metrics)
-
 // Agent data selector (when you really need the whole object)
 export const useAgentData = () => 
   useAgentStore(state => state.agentData)
@@ -89,24 +81,20 @@ export const useIsConnected = () =>
 export const useClearActions = () => {
   const clearSentiment = useAgentStore(state => state.clearSentiment)
   const clearPriority = useAgentStore(state => state.clearPriority)
-  const clearSummary = useAgentStore(state => state.clearSummary)
   const clearIntent = useAgentStore(state => state.clearIntent)
   const clearActionsFunc = useAgentStore(state => state.clearActions)
   const clearTranscript = useAgentStore(state => state.clearTranscript)
   const clearCustomer = useAgentStore(state => state.clearCustomer)
-  const clearMetrics = useAgentStore(state => state.clearMetrics)
   const clearKnowledgeArticles = useAgentStore(state => state.clearKnowledgeArticles)
   const clearAgentData = useAgentStore(state => state.clearAgentData)
   
   return {
     clearSentiment,
     clearPriority,
-    clearSummary,
     clearIntent,
     clearActions: clearActionsFunc,
     clearTranscript,
     clearCustomer,
-    clearMetrics,
     clearKnowledgeArticles,
     clearAgentData
   }
@@ -117,26 +105,22 @@ export const useUpdateActions = () => {
   const updateAgentData = useAgentStore(state => state.updateAgentData)
   const updateSentiment = useAgentStore(state => state.updateSentiment)
   const updatePriority = useAgentStore(state => state.updatePriority)
-  const updateSummary = useAgentStore(state => state.updateSummary)
   const updateIntent = useAgentStore(state => state.updateIntent)
   const updateActionsFunc = useAgentStore(state => state.updateActions)
   const setActionsDirectly = useAgentStore(state => state.setActionsDirectly)
   const updateKnowledgeArticles = useAgentStore(state => state.updateKnowledgeArticles)
   const updateCustomer = useAgentStore(state => state.updateCustomer)
-  const updateMetrics = useAgentStore(state => state.updateMetrics)
   const addTranscriptEntry = useAgentStore(state => state.addTranscriptEntry)
   
   return {
     updateAgentData,
     updateSentiment,
     updatePriority,
-    updateSummary,
     updateIntent,
     updateActions: updateActionsFunc,
     setActionsDirectly,
     updateKnowledgeArticles,
     updateCustomer,
-    updateMetrics,
     addTranscriptEntry
   }
 }

@@ -222,12 +222,10 @@ export function MediaControlBar({}: MediaControlBarProps) {
   // Clear all widget data
   const clearAllData = useCallback(() => {
     clearActions.clearSentiment()
-    clearActions.clearSummary()
     clearActions.clearIntent()
     clearActions.clearActions()
     clearActions.clearTranscript()
     clearActions.clearCustomer()
-    clearActions.clearMetrics()
     clearActions.clearKnowledgeArticles()
     updatePriority(undefined)
     updateAgentData({ queuePosition: undefined })

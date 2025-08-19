@@ -66,7 +66,6 @@ export function WebSocketProvider({ children, customWsUrl }: WebSocketProviderPr
     setConnectionStatus,
     updateSentiment,
     updatePriority,
-    updateSummary,
     updateIntent,
     updateActions,
     updateKnowledgeArticles,
@@ -76,7 +75,6 @@ export function WebSocketProvider({ children, customWsUrl }: WebSocketProviderPr
     isConnected,
     clearSentiment,
     clearPriority,
-    clearSummary,
     clearIntent,
     clearActions,
     clearTranscript,
@@ -119,19 +117,7 @@ export function WebSocketProvider({ children, customWsUrl }: WebSocketProviderPr
           break
           
         case 'summary':
-          // Handle summary as array or string
-          let summaryText = ''
-          if (Array.isArray(data.summary)) {
-            summaryText = data.summary.join('\n')
-          } else {
-            summaryText = data.summary || data.text || ''
-          }
-          updateSummary({
-            text: summaryText,
-            category: data.category || 'General',
-            lastUpdated: new Date(),
-            confidence: data.confidence || 0,
-          })
+          // Summary is no longer used - skip processing
           break
           
         case 'intent': {
@@ -256,7 +242,6 @@ export function WebSocketProvider({ children, customWsUrl }: WebSocketProviderPr
   }, [
     updateSentiment,
     updatePriority,
-    updateSummary,
     updateIntent,
     updateActions,
     updateKnowledgeArticles,
@@ -449,7 +434,7 @@ export function WebSocketProvider({ children, customWsUrl }: WebSocketProviderPr
         clearPriority?.()
         break
       case 'summary':
-        clearSummary?.()
+        // Summary is no longer used - skip clearing
         break
       case 'intent':
         clearIntent?.()
@@ -471,7 +456,7 @@ export function WebSocketProvider({ children, customWsUrl }: WebSocketProviderPr
       default:
         // Unknown data type for clearing
     }
-  }, [clearSentiment, clearPriority, clearSummary, clearIntent, clearActions, clearKnowledgeArticles, clearTranscript, clearCustomer])
+  }, [clearSentiment, clearPriority, clearIntent, clearActions, clearKnowledgeArticles, clearTranscript, clearCustomer])
 
   // Cleanup on unmount
   // Auto-connect if custom URL is provided (for multi-agent view)
