@@ -157,15 +157,10 @@ export function InlineCallNotification({}: InlineCallNotificationProps) {
     // First disconnect any existing WebSocket connection
     disconnect()
     
-    // Clear all data AFTER disconnect to ensure clean state
+    // Clear essential data for new call (keep some context that might be relevant)
     setTimeout(() => {
-      clearActions.clearSentiment()
-      clearActions.clearIntent()
-      clearActions.clearActions()
-      clearActions.clearTranscript()
-      clearActions.clearCustomer()
-      clearActions.clearKnowledgeArticles()
-      clearActions.clearPriority()
+      clearActions.clearActions()      // Clear previous call actions
+      clearActions.clearTranscript()   // Start fresh conversation
       updateAgentData({ queuePosition: undefined })
       
       // Connect with new callerId after clearing
