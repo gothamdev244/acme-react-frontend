@@ -27,7 +27,7 @@ import {
   Globe
 } from 'lucide-react'
 import { useCustomerColumnData } from '../../stores/selectors/agent-selectors'
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { cn } from '../../lib/utils'
 
 // Icon mapping for 8 standardized channel types
@@ -54,7 +54,8 @@ const getChannelIcon = (channel: string) => {
   }
 }
 
-export function CustomerColumn() {
+// PERFORMANCE: Component wrapped with memo to prevent unnecessary re-renders
+function CustomerColumnComponent() {
   const { customer, connectionStatus } = useCustomerColumnData()
   const [expandedInteractions, setExpandedInteractions] = useState<Set<string>>(new Set())
   
@@ -399,3 +400,6 @@ export function CustomerColumn() {
     </PanelGroup>
   )
 }
+
+// Export memoized component
+export const CustomerColumn = memo(CustomerColumnComponent)
