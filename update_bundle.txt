@@ -2,6 +2,9 @@
 """
 Bundle Update Script - Creates text bundles from directories
 Preserves exact file content without modifications
+Works on both Windows and Unix systems
+
+Usage: python update_bundle.txt <source_dir> [bundle_file]
 """
 
 import os
@@ -13,7 +16,8 @@ SKIP_PATTERNS = {
     '.git', '.gitignore', 'node_modules', '__pycache__', '.pyc', 
     '.pyo', '.DS_Store', 'dist', 'build', 'target', '.idea',
     '.vscode', '*.log', 'bundle.txt', 'recreate_from_bundle.py',
-    'update_bundle.py', '.env', '.env.local'
+    'update_bundle.py', 'recreate_from_bundle.txt', 'update_bundle.txt',
+    '.env', '.env.local'  # Keep .env files private, but .env.example will be included
 }
 
 def should_skip(path):
@@ -53,6 +57,10 @@ def is_binary_file(file_path):
 def create_bundle(source_dir, bundle_file):
     """Create a bundle file from a directory."""
     
+    # Normalize paths for Windows compatibility
+    source_dir = os.path.normpath(source_dir)
+    bundle_file = os.path.normpath(bundle_file)
+    
     if not os.path.exists(source_dir):
         print(f"ERROR: Source directory '{source_dir}' not found!")
         return 0
@@ -72,7 +80,8 @@ def create_bundle(source_dir, bundle_file):
                     continue
                 
                 file_path = os.path.join(root, file)
-                relative_path = os.path.relpath(file_path, source_dir)
+                # Use forward slashes for cross-platform compatibility in bundle
+                relative_path = os.path.relpath(file_path, source_dir).replace('\\', '/')
                 
                 # Skip binary files
                 if is_binary_file(file_path):
@@ -80,16 +89,16 @@ def create_bundle(source_dir, bundle_file):
                     continue
                 
                 # Write file marker
-                bundle.write(f"===BEGIN FILE:{relative_path}===\n")
+                bundle.write(f"===BEGIN FILE: {relative_path}===\n")
                 
                 # Write file content preserving exact formatting
                 try:
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                         content = f.read()
-                        # Write content as-is
+                        # Write content exactly as-is, preserving all formatting
                         bundle.write(content)
-                        # Ensure there's a newline before the end marker
-                        if not content.endswith('\n'):
+                        # Only add newline if content doesn't end with one
+                        if content and not content.endswith('\n'):
                             bundle.write('\n')
                 except Exception as e:
                     print(f"  Warning: Could not read {relative_path}: {e}")
@@ -107,7 +116,7 @@ def create_bundle(source_dir, bundle_file):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python update_bundle.py <source_dir> [bundle_file]")
+        print("Usage: python update_bundle.txt <source_dir> [bundle_file]")
         print("  If bundle_file is not specified, creates 'bundle.txt' in current directory")
         sys.exit(1)
     

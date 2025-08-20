@@ -2,6 +2,9 @@
 """
 Bundle Recreation Script - Preserves exact file formatting
 Extracts projects from text bundles without adding whitespace
+Works on both Windows and Unix systems
+
+Usage: python recreate_from_bundle.txt <bundle.txt> <output_dir>
 """
 
 import os
@@ -12,6 +15,10 @@ from pathlib import Path
 def recreate_from_bundle(bundle_file, output_dir, apply_replacements=False):
     """Recreate project structure from bundle file preserving exact formatting."""
     
+    # Normalize paths for Windows compatibility
+    bundle_file = os.path.normpath(bundle_file)
+    output_dir = os.path.normpath(output_dir)
+    
     if not os.path.exists(bundle_file):
         print(f"ERROR: Bundle file '{bundle_file}' not found!")
         return 0
@@ -19,7 +26,6 @@ def recreate_from_bundle(bundle_file, output_dir, apply_replacements=False):
     print(f"Processing {bundle_file} -> {output_dir}")
     
     # Remove and recreate output directory
-    output_dir = os.path.normpath(output_dir)
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
     os.makedirs(output_dir, exist_ok=True)
@@ -41,8 +47,8 @@ def recreate_from_bundle(bundle_file, output_dir, apply_replacements=False):
                 end = line.find('===', start) if '===' in line[start:] else len(line)
                 file_path = line[start:end].strip()
                 
-                # Create full path
-                file_path = file_path.replace('\\', '/')
+                # Create full path - use forward slashes from bundle, convert to OS-specific
+                file_path = file_path.replace('/', os.sep)
                 current_file = os.path.join(output_dir, file_path)
                 current_file = os.path.normpath(current_file)
                 
@@ -64,10 +70,9 @@ def recreate_from_bundle(bundle_file, output_dir, apply_replacements=False):
                     # Write the collected content preserving exact formatting
                     with open(current_file, 'w', encoding='utf-8', newline='') as f:
                         if file_content:
-                            f.write('\n'.join(file_content))
-                            # Only add final newline if original had content
-                            if file_content[-1] != '':
-                                f.write('\n')
+                            # Join lines preserving exact formatting from bundle
+                            content = '\n'.join(file_content)
+                            f.write(content)
                 in_file = False
                 file_content = []
                 current_file = None
@@ -85,7 +90,7 @@ def recreate_from_bundle(bundle_file, output_dir, apply_replacements=False):
 
 def main():
     if len(sys.argv) < 3:
-        print("Usage: python recreate_from_bundle.py <bundle.txt> <output_dir>")
+        print("Usage: python recreate_from_bundle.txt <bundle.txt> <output_dir>")
         sys.exit(1)
     
     bundle = sys.argv[1]
