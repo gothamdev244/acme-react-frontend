@@ -9,10 +9,22 @@ const ScrollArea = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <ScrollAreaPrimitive.Root
     ref={ref}
-    className={cn("relative overflow-hidden", className)}
+    className={cn(
+      // Base layout
+      "relative overflow-hidden",
+      // Custom classes
+      className
+    )}
     {...props}
   >
-    <ScrollAreaPrimitive.Viewport className="h-full w-full rounded-[inherit]">
+    <ScrollAreaPrimitive.Viewport 
+      className={cn(
+        // Size
+        "h-full w-full",
+        // Shape inheritance
+        "rounded-[inherit]"
+      )}
+    >
       {children}
     </ScrollAreaPrimitive.Viewport>
     <ScrollBar />
@@ -29,16 +41,40 @@ const ScrollBar = React.forwardRef<
     ref={ref}
     orientation={orientation}
     className={cn(
-      "flex touch-none select-none transition-colors",
-      orientation === "vertical" &&
-        "h-full w-2.5 border-l border-l-transparent p-[1px]",
-      orientation === "horizontal" &&
-        "h-2.5 flex-col border-t border-t-transparent p-[1px]",
+      // Base layout
+      "flex",
+      // Interaction
+      "touch-none select-none",
+      // Transitions
+      "transition-colors",
+      // Orientation-specific styles
+      orientation === "vertical" && [
+        // Size
+        "h-full w-2.5",
+        // Border & spacing
+        "border-l border-l-transparent p-[1px]"
+      ],
+      orientation === "horizontal" && [
+        // Size
+        "h-2.5 flex-col",
+        // Border & spacing
+        "border-t border-t-transparent p-[1px]"
+      ],
+      // Custom classes
       className
     )}
     {...props}
   >
-    <ScrollAreaPrimitive.ScrollAreaThumb className="relative flex-1 rounded-full bg-border" />
+    <ScrollAreaPrimitive.ScrollAreaThumb 
+      className={cn(
+        // Layout
+        "relative flex-1",
+        // Shape
+        "rounded-full",
+        // Colors
+        "bg-border"
+      )}
+    />
   </ScrollAreaPrimitive.ScrollAreaScrollbar>
 ))
 ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName
