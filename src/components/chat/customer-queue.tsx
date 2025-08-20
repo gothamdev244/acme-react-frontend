@@ -52,42 +52,53 @@ export function CustomerQueue({ onSelectCustomer, className }: CustomerQueueProp
     setCustomers(initialQueue)
   }, [])
 
-  // Add new customers periodically
+  // Add new customers periodically - OPTIMIZED: Combined timers and added visibility check
   useEffect(() => {
+    // Combine both timers into one for efficiency
+    let counter = 0
+    
     const interval = setInterval(() => {
-      // 30% chance to add a new customer every 30 seconds
-      if (Math.random() < 0.3 && customers.length < 12) {
-        const newCustomer = generateMockCustomer()
-        setCustomers(prev => {
-          const updated = [...prev, newCustomer]
-          // Sort by priority and wait time
-          return updated.sort((a, b) => {
-            const priorityOrder = { high: 3, medium: 2, low: 1 }
-            if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
-              return priorityOrder[b.priority] - priorityOrder[a.priority]
-            }
-            return b.waitTime - a.waitTime
-          })
-        })
+      // Skip updates if tab is not visible
+      if (document.hidden) return
+      
+      counter++
+      
+      // Update wait times every 10 seconds (was 60 seconds)
+      // This provides smoother updates while reducing from 60 updates/hour to 6
+      if (counter % 1 === 0) {
+        setCustomers(prev => 
+          prev.map(customer => ({
+            ...customer,
+            waitTime: customer.waitTime + 0.167 // 10 seconds = 0.167 minutes
+          }))
+        )
       }
-    }, 30000) // Every 30 seconds
+      
+      // Add new customers every 30 seconds (every 3rd iteration)
+      if (counter % 3 === 0) {
+        // 30% chance to add a new customer
+        if (Math.random() < 0.3 && customers.length < 12) {
+          const newCustomer = generateMockCustomer()
+          setCustomers(prev => {
+            const updated = [...prev, newCustomer]
+            // Sort by priority and wait time
+            return updated.sort((a, b) => {
+              const priorityOrder = { high: 3, medium: 2, low: 1 }
+              if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
+                return priorityOrder[b.priority] - priorityOrder[a.priority]
+              }
+              return b.waitTime - a.waitTime
+            })
+          })
+        }
+      }
+      
+      // Reset counter to prevent overflow
+      if (counter >= 6) counter = 0
+    }, 10000) // Single timer running every 10 seconds
 
     return () => clearInterval(interval)
   }, [customers.length])
-
-  // Update wait times every minute
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCustomers(prev => 
-        prev.map(customer => ({
-          ...customer,
-          waitTime: customer.waitTime + 1
-        }))
-      )
-    }, 60000) // Every minute
-
-    return () => clearInterval(interval)
-  }, [])
 
   // Calculate metrics whenever customers change
   useEffect(() => {
