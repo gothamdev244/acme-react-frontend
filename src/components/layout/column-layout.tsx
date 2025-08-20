@@ -72,15 +72,13 @@ function ColumnLayoutComponent() {
   useEffect(() => {
     // Start with empty agent data - widgets show watermarks
     updateAgentData({
-      customer: null,
-      sentiment: null,
-      summary: null,
-      intent: null,
+      customer: undefined,
+      sentiment: undefined,
+      intent: undefined,
       actions: [],
       transcript: [],
       knowledgeArticles: [],
-      priority: null,
-      metrics: null
+      priority: undefined
     })
   }, [])
   

@@ -165,7 +165,7 @@ export function InlineCallNotification({}: InlineCallNotificationProps) {
       clearActions.clearTranscript()
       clearActions.clearCustomer()
       clearActions.clearKnowledgeArticles()
-      updatePriority(undefined)
+      clearActions.clearPriority()
       updateAgentData({ queuePosition: undefined })
       
       // Connect with new callerId after clearing
@@ -413,32 +413,32 @@ export function InlineCallNotification({}: InlineCallNotificationProps) {
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400/80 to-blue-600/80 blur-md" />
                   <div className="relative w-full h-full rounded-full backdrop-blur-xl bg-gradient-to-br from-blue-400/60 to-blue-600/60 ring-2 ring-white/20 shadow-xl flex items-center justify-center">
                     <span className="text-white/95 text-2xl font-semibold drop-shadow-sm">
-                      {callerInfo.name.split(' ').map(n => n[0]).join('')}
+                      {callerInfo?.name?.split(' ').map(n => n[0]).join('') || 'U'}
                     </span>
                   </div>
                 </div>
                 
                 <div className="space-y-1">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white/95">
-                    {callerInfo.name}
+                    {callerInfo?.name || 'Unknown Caller'}
                   </h3>
                   <p className="text-sm text-gray-700 dark:text-white/75">
-                    {callerInfo.number}
+                    {callerInfo?.number || 'Unknown Number'}
                   </p>
                   <p className="text-xs text-gray-600 dark:text-white/60">
-                    {callerInfo.location}
+                    {callerInfo?.location || 'Unknown Location'}
                   </p>
                 </div>
                 
                 {/* Liquid glass badge */}
                 <div className="mt-3 inline-flex items-center px-3 py-1 rounded-full backdrop-blur-xl bg-white/10 border border-white/20">
                   <div className={`w-2 h-2 rounded-full mr-2 ${
-                    callerInfo.priority === 'URGENT' ? 'bg-red-400' :
-                    callerInfo.priority === 'HIGH' ? 'bg-orange-400' :
-                    callerInfo.priority === 'MEDIUM' ? 'bg-yellow-400' : 'bg-green-400'
+                    callerInfo?.priority === 'URGENT' ? 'bg-red-400' :
+                    callerInfo?.priority === 'HIGH' ? 'bg-orange-400' :
+                    callerInfo?.priority === 'MEDIUM' ? 'bg-yellow-400' : 'bg-green-400'
                   }`} />
                   <span className="text-xs font-medium text-gray-700 dark:text-white/80">
-                    {callerInfo.priority} Priority
+                    {callerInfo?.priority || 'UNKNOWN'} Priority
                   </span>
                 </div>
               </div>
@@ -513,7 +513,7 @@ export function InlineCallNotification({}: InlineCallNotificationProps) {
         isOpen={showEndCallConfirm}
         onConfirm={handleConfirmedEndCall}
         onCancel={() => setShowEndCallConfirm(false)}
-        callerName={callerInfo.name}
+        callerName={callerInfo?.name || 'Unknown Caller'}
         duration={callDuration}
         incompleteActions={agentData.actions?.filter(action => !action.completed).length || 0}
         requireActionsCompletion={agentSettings.calls.requireActionsCompletion}

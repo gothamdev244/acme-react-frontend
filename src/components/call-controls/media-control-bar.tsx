@@ -227,7 +227,7 @@ export function MediaControlBar({}: MediaControlBarProps) {
     clearActions.clearTranscript()
     clearActions.clearCustomer()
     clearActions.clearKnowledgeArticles()
-    updatePriority(undefined)
+    clearActions.clearPriority()
     updateAgentData({ queuePosition: undefined })
   }, [clearActions, updatePriority, updateAgentData])
   
@@ -476,12 +476,12 @@ export function MediaControlBar({}: MediaControlBarProps) {
                     </Badge>
                   </div>
                   <div className="text-[12px] sm:text-[13px] text-gray-600 font-normal truncate">
-                    <span className="hidden lg:inline">{callerInfo.number} • </span>
-                    <span className="hidden sm:inline lg:hidden">{callerInfo.number.slice(-4)} • </span>
-                    <span className="sm:hidden">{callerInfo.number.slice(-4)} • </span>
-                    <span className="hidden lg:inline">{callerInfo.location}</span>
-                    <span className="hidden sm:inline lg:hidden">{callerInfo.location.split(',')[0]}</span>
-                    <span className="sm:hidden">{callerInfo.location.split(',')[0].split(' ')[0]}</span>
+                    <span className="hidden lg:inline">{callerInfo?.number || 'Unknown Number'} • </span>
+                    <span className="hidden sm:inline lg:hidden">{callerInfo?.number?.slice(-4) || 'Unknown'} • </span>
+                    <span className="sm:hidden">{callerInfo?.number?.slice(-4) || 'Unknown'} • </span>
+                    <span className="hidden lg:inline">{callerInfo?.location || 'Unknown Location'}</span>
+                    <span className="hidden sm:inline lg:hidden">{callerInfo?.location?.split(',')[0] || 'Unknown'}</span>
+                    <span className="sm:hidden">{callerInfo?.location?.split(',')[0]?.split(' ')[0] || 'Unknown'}</span>
                   </div>
                 </div>
               </div>

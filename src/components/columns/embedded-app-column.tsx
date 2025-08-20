@@ -21,7 +21,7 @@ import { traceLog } from '../../utils/debug'
 // ✅ FIXED: Embedded app URL and allowed origins now configurable via environment variables
 const EMBEDDED_APP_URL = import.meta.env.VITE_EMBEDDED_APP_URL || ''
 const ALLOWED_ORIGINS = import.meta.env.VITE_ALLOWED_ORIGINS 
-  ? import.meta.env.VITE_ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
+  ? import.meta.env.VITE_ALLOWED_ORIGINS.split(',').map((origin: string) => origin.trim())
   : []
 
 

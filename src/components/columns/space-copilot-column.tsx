@@ -136,7 +136,7 @@ function SpaceCopilotColumnComponent({ onKMSOpen }: SpaceCopilotColumnProps) {
             // Use enriched data from Gateway - this means the intent definitely has an embedded app
             const realIntent = {
               id: intentId,
-              name: agentData.intent.appTitle,
+              name: agentData.intent.appTitle || intentId,
               icon: 'target',
               context: {},
               confidence: agentData.intent.confidence || 0.9,

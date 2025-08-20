@@ -64,7 +64,7 @@ export function useEmbeddedAppSearch(options: UseEmbeddedAppSearchOptions = {}) 
     return {
       role: resolvedRole,
       customerTier: agentData?.customer?.tier || 'standard',
-      currentIntent: embeddedAppIntent
+      currentIntent: embeddedAppIntent || undefined
     }
   }, [currentRole, user?.role, agentData?.role, agentData?.customer?.tier, embeddedAppIntent])
 
@@ -153,7 +153,9 @@ export function useEmbeddedAppSearch(options: UseEmbeddedAppSearchOptions = {}) 
           cacheRef.current.set(cacheKey, response.results)
           if (cacheRef.current.size > CACHE_SIZE) {
             const firstKey = cacheRef.current.keys().next().value
-            cacheRef.current.delete(firstKey)
+            if (firstKey !== undefined) {
+              cacheRef.current.delete(firstKey)
+            }
           }
         }
       } catch (error) {
