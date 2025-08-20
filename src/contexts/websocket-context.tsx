@@ -315,7 +315,7 @@ export function WebSocketProvider({ children, customWsUrl }: WebSocketProviderPr
         
         // Start call duration timer
         const callStartTime = Date.now()
-        // PERFORMANCE: Changed from 1s to 5s updates, added document visibility check
+        // Keep at 1s for accurate call duration tracking (needed for toast notification)
         const durationInterval = setInterval(() => {
           // Skip update if tab is hidden
           if (document.hidden) return
@@ -323,7 +323,7 @@ export function WebSocketProvider({ children, customWsUrl }: WebSocketProviderPr
           updateAgentData({
             callDuration: Math.floor((Date.now() - callStartTime) / 1000)
           })
-        }, 5000) // Update every 5 seconds instead of 1
+        }, 1000) // Keep at 1 second for accuracy
         
         // Store interval reference for cleanup
         ;(ws as any)._durationInterval = durationInterval
