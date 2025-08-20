@@ -117,15 +117,6 @@ function EmbeddedAppColumnComponent() {
   // Get WebSocket enriched intent data with appUrl and appTitle
   const websocketIntent = useWebSocketIntent()
   
-  // Debug logging for iframe URL loading
-  useEffect(() => {
-    console.log('🔍 [EmbeddedApp] WebSocket Intent Data:', {
-      websocketIntent,
-      hasData: !!(websocketIntent?.appUrl && websocketIntent?.appTitle),
-      baseUrl: EMBEDDED_APP_URL,
-      timestamp: new Date().toISOString()
-    })
-  }, [websocketIntent])
   
   
   // Helper to get intent display name
@@ -356,19 +347,10 @@ function EmbeddedAppColumnComponent() {
       appUrl = `${EMBEDDED_APP_URL}${websocketIntent.appUrl}`
       appTitle = websocketIntent.appTitle!
       
-      console.log('✅ [EmbeddedApp] Using WebSocket Intent Data:', {
-        intent: intentToCreate,
-        appUrl,
-        appTitle,
-        rawAppUrl: websocketIntent.appUrl,
-        baseUrl: EMBEDDED_APP_URL,
-        fullWebSocketData: websocketIntent
-      })
       
       // DEDUPLICATION: Check if a tab with the same appUrl already exists
       const existingAppTab = tabs.find(tab => tab.url.startsWith(`${EMBEDDED_APP_URL}${websocketIntent.appUrl}`))
       if (existingAppTab) {
-        console.log('🔄 [EmbeddedApp] Existing tab found, switching:', existingAppTab.id)
         if (switchToTab) {
           setActiveTabId(existingAppTab.id)
         }
@@ -400,14 +382,6 @@ function EmbeddedAppColumnComponent() {
       )
       appTitle = getIntentLabel(intentToCreate)
       
-      console.log('⚠️ [EmbeddedApp] Using Fallback URL Building:', {
-        intent: intentToCreate,
-        appUrl,
-        appTitle,
-        hasContext,
-        customerContext,
-        reason: 'No WebSocket intent data available'
-      })
     }
     
     // Create new tab
@@ -422,13 +396,6 @@ function EmbeddedAppColumnComponent() {
       handshakeComplete: false
     }
     
-    console.log('🆕 [EmbeddedApp] Creating New Tab:', {
-      tabId: newTabId,
-      intent: intentToCreate,
-      url: appUrl,
-      label: appTitle,
-      timestamp: new Date().toISOString()
-    })
     
     setTabs(prev => {
       const newTabs = [...prev, newTab]
