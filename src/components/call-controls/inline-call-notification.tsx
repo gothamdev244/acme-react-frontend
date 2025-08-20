@@ -289,13 +289,11 @@ export function InlineCallNotification({}: InlineCallNotificationProps) {
     // Clear all agent data for fresh start
     setTimeout(() => {
       clearActions.clearSentiment()
-      clearActions.clearSummary()
       clearActions.clearIntent()
       clearActions.clearActions()
       clearActions.clearTranscript()
       clearActions.clearCustomer()
-      clearActions.clearMetrics()
-      updatePriority(undefined)
+      clearActions.clearPriority()
       updateAgentData({ queuePosition: undefined })
       // Clear the stored customer data
       window.localStorage.removeItem('currentCallCustomer')
