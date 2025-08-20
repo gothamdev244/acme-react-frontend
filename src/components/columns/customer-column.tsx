@@ -27,7 +27,7 @@ import {
   Globe
 } from 'lucide-react'
 import { useCustomerColumnData } from '../../stores/selectors/agent-selectors'
-import { useState } from 'react'
+import { useState, memo, useMemo } from 'react'
 import { cn } from '../../lib/utils'
 
 // Icon mapping for 8 standardized channel types
@@ -54,7 +54,7 @@ const getChannelIcon = (channel: string) => {
   }
 }
 
-export function CustomerColumn() {
+export const CustomerColumn = memo(function CustomerColumn() {
   const { customer, connectionStatus } = useCustomerColumnData()
   const [expandedInteractions, setExpandedInteractions] = useState<Set<string>>(new Set())
   
@@ -75,20 +75,21 @@ export function CustomerColumn() {
     maxSize: 70
   })
   
-  // Map customer interactions to UI format
-  const interactions = (customer?.interactionHistory || []).map((interaction: any, index: number) => ({
-    id: `interaction-${index}`,
-    channel: interaction.channel || 'phone',
-    subject: interaction.subject || 'Customer Interaction',
-    date: interaction.interaction_date || interaction.date || new Date().toISOString(),
-    status: interaction.status || 'resolved',
-    details: interaction.description || interaction.interaction_context || '',
-    sentiment: interaction.sentiment || 'neutral',
-    outcome: interaction.interaction_outcome || interaction.status,
-    responseTime: interaction.response_time_minutes,
-    priority: interaction.priority_level || 'medium',
-    tags: interaction.tags || []
-  }))
+  // Memoize expensive interactions mapping - only recalculate when customer changes
+  const interactions = useMemo(() => 
+    (customer?.interactionHistory || []).map((interaction: any, index: number) => ({
+      id: `interaction-${index}`,
+      channel: interaction.channel || 'phone',
+      subject: interaction.subject || 'Customer Interaction',
+      date: interaction.interaction_date || interaction.date || new Date().toISOString(),
+      status: interaction.status || 'resolved',
+      details: interaction.description || interaction.interaction_context || '',
+      sentiment: interaction.sentiment || 'neutral',
+      outcome: interaction.interaction_outcome || interaction.status,
+      responseTime: interaction.response_time_minutes,
+      priority: interaction.priority_level || 'medium',
+      tags: interaction.tags || []
+    })), [customer?.interactionHistory])
   
   const toggleInteraction = (id: string) => {
     setExpandedInteractions(prev => {
@@ -398,4 +399,4 @@ export function CustomerColumn() {
       </Panel>
     </PanelGroup>
   )
-}
+})
