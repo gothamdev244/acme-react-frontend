@@ -69,7 +69,7 @@ export function useKMS() {
     const enrichedLinks = await Promise.all(
       links.map(async (link) => {
         const metadata = await kmsService.getArticleMetadata(link.articleId)
-        return { ...link, metadata }
+        return { ...link, metadata: metadata || undefined }
       })
     )
 

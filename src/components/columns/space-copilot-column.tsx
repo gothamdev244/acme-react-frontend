@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, memo } from 'react'
 import { TranscriptWidget } from '../widgets/transcript'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { Badge } from '../ui/badge'
@@ -68,7 +68,7 @@ interface SpaceCopilotColumnProps {
   onKMSOpen?: (articleId: string, article?: any) => void
 }
 
-export function SpaceCopilotColumn({ onKMSOpen }: SpaceCopilotColumnProps) {
+function SpaceCopilotColumnComponent({ onKMSOpen }: SpaceCopilotColumnProps) {
   const { 
     currentIntent, 
     availableIntents, 
@@ -136,7 +136,7 @@ export function SpaceCopilotColumn({ onKMSOpen }: SpaceCopilotColumnProps) {
             // Use enriched data from Gateway - this means the intent definitely has an embedded app
             const realIntent = {
               id: intentId,
-              name: agentData.intent.appTitle,
+              name: agentData.intent.appTitle || intentId,
               icon: 'target',
               context: {},
               confidence: agentData.intent.confidence || 0.9,
@@ -905,3 +905,6 @@ function SpaceCopilotContent({ currentIntent, currentIntentObj, availableIntents
     </div>
   )
 }
+
+
+export const SpaceCopilotColumn = memo(SpaceCopilotColumnComponent)

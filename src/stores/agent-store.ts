@@ -32,13 +32,6 @@ interface AgentData {
   }
   
   // AI-Generated Content
-  summary: {
-    text: string
-    category: string
-    lastUpdated: Date
-    confidence: number
-  }
-  
   intent: {
     type: string
     confidence: number
@@ -102,14 +95,6 @@ interface AgentData {
     }>
   }
   
-  // Performance Metrics
-  metrics: {
-    avgHandleTime: number
-    resolutionRate: number
-    customerSatisfaction: number
-    callsHandled: number
-    firstCallResolution: number
-  }
 }
 
 interface AgentStore {
@@ -123,27 +108,23 @@ interface AgentStore {
   updateAgentData: (data: Partial<AgentData>) => void
   updateSentiment: (sentiment: AgentData['sentiment']) => void
   updatePriority: (priority: AgentData['priority']) => void
-  updateSummary: (summary: AgentData['summary']) => void
   updateIntent: (intent: AgentData['intent']) => void
   addTranscriptEntry: (entry: AgentData['transcript'][0]) => void
   updateActions: (actions: AgentData['actions']) => void
   setActionsDirectly: (actions: AgentData['actions']) => void  // For local checkbox updates
   updateKnowledgeArticles: (articles: AgentData['knowledgeArticles']) => void
   updateCustomer: (customer: AgentData['customer']) => void
-  updateMetrics: (metrics: AgentData['metrics']) => void
   setConnectionStatus: (status: AgentStore['connectionStatus']) => void
   reset: () => void
   
   // Clear methods for refresh functionality
   clearSentiment: () => void
   clearPriority: () => void
-  clearSummary: () => void
   clearIntent: () => void
   clearActions: () => void
   clearTranscript: () => void
   clearKnowledgeArticles: () => void
   clearCustomer: () => void
-  clearMetrics: () => void
   clearAgentData: () => void
 }
 
@@ -206,17 +187,6 @@ export const useAgentStore = create<AgentStore>((set) => ({
       }
       return {
         agentData: { ...state.agentData, priority },
-        lastUpdate: new Date(),
-      }
-    }),
-  
-  updateSummary: (summary) =>
-    set((state) => {
-      if (isShallowEqual(state.agentData.summary, summary)) {
-        return state
-      }
-      return {
-        agentData: { ...state.agentData, summary },
         lastUpdate: new Date(),
       }
     }),
@@ -316,12 +286,6 @@ export const useAgentStore = create<AgentStore>((set) => ({
       }
     }),
   
-  updateMetrics: (metrics) =>
-    set((state) => ({
-      agentData: { ...state.agentData, metrics },
-      lastUpdate: new Date(),
-    })),
-  
   setConnectionStatus: (connectionStatus) =>
     set({
       connectionStatus,
@@ -340,12 +304,6 @@ export const useAgentStore = create<AgentStore>((set) => ({
   clearPriority: () =>
     set((state) => ({
       agentData: { ...state.agentData, priority: undefined },
-      lastUpdate: new Date(),
-    })),
-  
-  clearSummary: () =>
-    set((state) => ({
-      agentData: { ...state.agentData, summary: undefined },
       lastUpdate: new Date(),
     })),
   
@@ -376,12 +334,6 @@ export const useAgentStore = create<AgentStore>((set) => ({
   clearCustomer: () =>
     set((state) => ({
       agentData: { ...state.agentData, customer: undefined },
-      lastUpdate: new Date(),
-    })),
-  
-  clearMetrics: () =>
-    set((state) => ({
-      agentData: { ...state.agentData, metrics: undefined },
       lastUpdate: new Date(),
     })),
     

@@ -112,7 +112,9 @@ export function useSearchAPI() {
         cacheRef.current.set(trimmed, { results: normalized, total: t })
         if (cacheRef.current.size > CACHE_SIZE) {
           const firstKey = cacheRef.current.keys().next().value
-          cacheRef.current.delete(firstKey)
+          if (firstKey !== undefined) {
+            cacheRef.current.delete(firstKey)
+          }
         }
       } catch (err) {
         if ((err as any)?.name === 'AbortError') return

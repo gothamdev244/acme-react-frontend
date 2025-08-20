@@ -15,7 +15,7 @@ interface UseContainerSizeOptions {
 }
 
 export function useContainerSize(options: UseContainerSizeOptions = {}): [
-  React.RefObject<HTMLDivElement>,
+  React.RefObject<HTMLDivElement | null>,
   ContainerSize
 ] {
   const {

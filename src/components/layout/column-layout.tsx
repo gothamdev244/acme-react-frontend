@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, memo } from 'react'
 import { GlobalHeader } from './global-header'
 import { CustomerColumn } from '../columns/customer-column'
 import { EmbeddedAppColumn } from '../columns/embedded-app-column'
@@ -25,7 +25,7 @@ import { useAgentStatusStore } from '../../stores/agent-status-store'
 import { initializeMockData } from '../../utils/mock-data'
 import { useRoleConfig } from '../../contexts/role-context'
 
-export function ColumnLayout() {
+function ColumnLayoutComponent() {
   const [isKMSOpen, setIsKMSOpen] = useState(false)
   const [selectedArticleId, setSelectedArticleId] = useState<string>('')
   const [selectedArticle, setSelectedArticle] = useState<any>(null)
@@ -72,15 +72,13 @@ export function ColumnLayout() {
   useEffect(() => {
     // Start with empty agent data - widgets show watermarks
     updateAgentData({
-      customer: null,
-      sentiment: null,
-      summary: null,
-      intent: null,
+      customer: undefined,
+      sentiment: undefined,
+      intent: undefined,
       actions: [],
       transcript: [],
       knowledgeArticles: [],
-      priority: null,
-      metrics: null
+      priority: undefined
     })
   }, [])
   
@@ -521,3 +519,6 @@ export function ColumnLayout() {
     </div>
   )
 }
+
+
+export const ColumnLayout = memo(ColumnLayoutComponent)

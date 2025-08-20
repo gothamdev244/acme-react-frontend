@@ -19,18 +19,10 @@ import { useRoleConfig } from '../../contexts/role-context'
 import { traceLog } from '../../utils/debug'
 
 // ✅ FIXED: Embedded app URL and allowed origins now configurable via environment variables
-const EMBEDDED_APP_URL = import.meta.env.VITE_EMBEDDED_APP_URL || 'http://localhost:5175'
+const EMBEDDED_APP_URL = import.meta.env.VITE_EMBEDDED_APP_URL || ''
 const ALLOWED_ORIGINS = import.meta.env.VITE_ALLOWED_ORIGINS 
-  ? import.meta.env.VITE_ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
-  : [
-      'http://localhost:5173',
-      'http://localhost:5174', 
-      'http://localhost:5175',
-      'http://localhost:5176',
-      'http://localhost:5177',
-      'http://localhost:5178',
-      'https://embedded.hsbc.com'
-    ]
+  ? import.meta.env.VITE_ALLOWED_ORIGINS.split(',').map((origin: string) => origin.trim())
+  : []
 
 
 interface EmbeddedAppTab {
@@ -103,7 +95,7 @@ const IframeTab = memo(({
 
 IframeTab.displayName = 'IframeTab'
 
-export function EmbeddedAppColumn() {
+function EmbeddedAppColumnComponent() {
   const [tabs, setTabs] = useState<EmbeddedAppTab[]>([])
   const [activeTabId, setActiveTabId] = useState<string | null>(null)
   const [iframeHeight, setIframeHeight] = useState('800px')
@@ -124,6 +116,7 @@ export function EmbeddedAppColumn() {
   
   // Get WebSocket enriched intent data with appUrl and appTitle
   const websocketIntent = useWebSocketIntent()
+  
   
   
   // Helper to get intent display name
@@ -354,6 +347,7 @@ export function EmbeddedAppColumn() {
       appUrl = `${EMBEDDED_APP_URL}${websocketIntent.appUrl}`
       appTitle = websocketIntent.appTitle!
       
+      
       // DEDUPLICATION: Check if a tab with the same appUrl already exists
       const existingAppTab = tabs.find(tab => tab.url.startsWith(`${EMBEDDED_APP_URL}${websocketIntent.appUrl}`))
       if (existingAppTab) {
@@ -387,6 +381,7 @@ export function EmbeddedAppColumn() {
         { role: 'agent', tabId: `tab-${intentToCreate}-${Date.now()}` }
       )
       appTitle = getIntentLabel(intentToCreate)
+      
     }
     
     // Create new tab
@@ -400,6 +395,7 @@ export function EmbeddedAppColumn() {
       error: null,
       handshakeComplete: false
     }
+    
     
     setTabs(prev => {
       const newTabs = [...prev, newTab]
@@ -743,3 +739,6 @@ export function EmbeddedAppColumn() {
     </div>
   )
 }
+
+
+export const EmbeddedAppColumn = memo(EmbeddedAppColumnComponent)
