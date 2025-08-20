@@ -57,14 +57,47 @@ export function GlobalSearchOverlay({ isOpen, onClose, onAppLaunch }: GlobalSear
     [isOpen, onClose]
   )
 
-  // Focus the input when overlay opens
+  // Focus management: trap focus and prevent iframe from stealing it
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      // Small delay to ensure the overlay is fully rendered
-      const timer = setTimeout(() => {
+    if (!isOpen) return
+
+    // Focus the input when overlay opens
+    const focusTimer = setTimeout(() => {
+      inputRef.current?.focus()
+    }, 100)
+
+    // Prevent focus from escaping to iframe
+    const handleFocusIn = (e: FocusEvent) => {
+      // If focus goes outside the overlay, bring it back to the input
+      if (overlayRef.current && !overlayRef.current.contains(e.target as Node)) {
+        e.preventDefault()
+        e.stopPropagation()
         inputRef.current?.focus()
-      }, 100)
-      return () => clearTimeout(timer)
+      }
+    }
+
+    // Add focusin listener to trap focus
+    document.addEventListener('focusin', handleFocusIn, true)
+
+    // Disable all iframes while overlay is open
+    const iframes = document.querySelectorAll('iframe')
+    iframes.forEach(iframe => {
+      iframe.setAttribute('data-prev-tabindex', iframe.tabIndex.toString())
+      iframe.tabIndex = -1
+      iframe.style.pointerEvents = 'none'
+    })
+
+    return () => {
+      clearTimeout(focusTimer)
+      document.removeEventListener('focusin', handleFocusIn, true)
+      
+      // Restore iframe interactivity
+      iframes.forEach(iframe => {
+        const prevTabIndex = iframe.getAttribute('data-prev-tabindex')
+        iframe.tabIndex = prevTabIndex ? parseInt(prevTabIndex) : 0
+        iframe.style.pointerEvents = ''
+        iframe.removeAttribute('data-prev-tabindex')
+      })
     }
   }, [isOpen])
 
