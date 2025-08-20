@@ -42,7 +42,8 @@ export function AgentStatusToggle({ onAutoCall, compact = false }: AgentStatusTo
   
   const [timeInStatus, setTimeInStatus] = useState('0:00')
   
-  // Update time in current status
+  // Update time in current status - optimized to update every 5 seconds instead of every second
+  // This reduces unnecessary re-renders from 60/minute to 12/minute (80% reduction!)
   useEffect(() => {
     const updateTimer = () => {
       const now = new Date()
@@ -50,8 +51,14 @@ export function AgentStatusToggle({ onAutoCall, compact = false }: AgentStatusTo
       setTimeInStatus(formatTime(diff))
     }
     
-    updateTimer()
-    const interval = setInterval(updateTimer, 1000)
+    updateTimer() // Initial update
+    
+    // Only update if document is visible (not in background tab)
+    const interval = setInterval(() => {
+      if (!document.hidden) {
+        updateTimer()
+      }
+    }, 5000) // Update every 5 seconds instead of every second
     
     return () => clearInterval(interval)
   }, [statusSince, formatTime])
