@@ -54,8 +54,8 @@ const IframeTab = memo(({
   return (
     <div className={`absolute inset-0 ${isActive ? 'z-10 opacity-100' : 'z-0 opacity-0 pointer-events-none'}`}>
       {tab.isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-background/50 z-10">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+        <div className="absolute inset-0 flex items-center justify-center bg-background/50 z-10 cursor-wait">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary pointer-events-none" />
         </div>
       )}
       
@@ -83,6 +83,8 @@ const IframeTab = memo(({
         ref={iframeRef}
         src={tab.url}
         className="w-full h-full border-0"
+        style={{ pointerEvents: tab.isLoading ? 'none' : 'auto' }}
+        tabIndex={tab.isLoading ? -1 : 0}
         title={`HSBC ${tab.label}`}
         sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
         allow="clipboard-write"

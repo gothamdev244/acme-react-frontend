@@ -3,7 +3,18 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "../../lib/utils"
 
 const alertVariants = cva(
-  "relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
+  [
+    // Base layout & positioning
+    "relative w-full",
+    // Shape & border
+    "rounded-lg border",
+    // Padding
+    "p-4",
+    // Icon positioning
+    "[&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
+    // Content adjustment when icon present
+    "[&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px]"
+  ].join(" "),
   {
     variants: {
       variant: {
@@ -37,7 +48,14 @@ const AlertTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h5
     ref={ref}
-    className={cn("mb-1 font-medium leading-none tracking-tight", className)}
+    className={cn(
+      // Spacing
+      "mb-1",
+      // Typography
+      "font-medium leading-none tracking-tight",
+      // Custom classes
+      className
+    )}
     {...props}
   />
 ))
@@ -49,7 +67,14 @@ const AlertDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("text-sm [&_p]:leading-relaxed", className)}
+    className={cn(
+      // Typography
+      "text-sm",
+      // Paragraph styling
+      "[&_p]:leading-relaxed",
+      // Custom classes
+      className
+    )}
     {...props}
   />
 ))

@@ -52,10 +52,27 @@ export function CustomerQueue({ onSelectCustomer, className }: CustomerQueueProp
     setCustomers(initialQueue)
   }, [])
 
-  // Add new customers periodically
+  // PERFORMANCE: Consolidated two timers into one
   useEffect(() => {
+    let tickCount = 0
+    
     const interval = setInterval(() => {
-      // 30% chance to add a new customer every 30 seconds
+      // Only update if document is visible
+      if (document.hidden) return
+      
+      tickCount++
+      
+      // Update wait times every 60 seconds (was separate 60s timer)
+      if (tickCount % 2 === 0) {
+        setCustomers(prev => 
+          prev.map(customer => ({
+            ...customer,
+            waitTime: customer.waitTime + 1
+          }))
+        )
+      }
+      
+      // Add new customers every 30 seconds (unchanged)
       if (Math.random() < 0.3 && customers.length < 12) {
         const newCustomer = generateMockCustomer()
         setCustomers(prev => {
@@ -70,24 +87,10 @@ export function CustomerQueue({ onSelectCustomer, className }: CustomerQueueProp
           })
         })
       }
-    }, 30000) // Every 30 seconds
+    }, 30000) // Single 30-second timer handles both operations
 
     return () => clearInterval(interval)
   }, [customers.length])
-
-  // Update wait times every minute
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCustomers(prev => 
-        prev.map(customer => ({
-          ...customer,
-          waitTime: customer.waitTime + 1
-        }))
-      )
-    }, 60000) // Every minute
-
-    return () => clearInterval(interval)
-  }, [])
 
   // Calculate metrics whenever customers change
   useEffect(() => {

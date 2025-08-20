@@ -45,13 +45,17 @@ export function AgentStatusToggle({ onAutoCall, compact = false }: AgentStatusTo
   // Update time in current status
   useEffect(() => {
     const updateTimer = () => {
+      // Only update if document is visible
+      if (document.hidden) return
+      
       const now = new Date()
       const diff = Math.floor((now.getTime() - new Date(statusSince).getTime()) / 1000)
       setTimeInStatus(formatTime(diff))
     }
     
     updateTimer()
-    const interval = setInterval(updateTimer, 1000)
+    // PERFORMANCE: Changed from 1000ms to 5000ms - 80% reduction in timer calls
+    const interval = setInterval(updateTimer, 5000)
     
     return () => clearInterval(interval)
   }, [statusSince, formatTime])

@@ -315,11 +315,15 @@ export function WebSocketProvider({ children, customWsUrl }: WebSocketProviderPr
         
         // Start call duration timer
         const callStartTime = Date.now()
+        // Keep at 1s for accurate call duration tracking (needed for toast notification)
         const durationInterval = setInterval(() => {
+          // Skip update if tab is hidden
+          if (document.hidden) return
+          
           updateAgentData({
             callDuration: Math.floor((Date.now() - callStartTime) / 1000)
           })
-        }, 1000)
+        }, 1000) // Keep at 1 second for accuracy
         
         // Store interval reference for cleanup
         ;(ws as any)._durationInterval = durationInterval
