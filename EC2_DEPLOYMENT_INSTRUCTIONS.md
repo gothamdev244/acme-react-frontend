@@ -47,6 +47,10 @@ export default defineConfig({
         target: 'ws://localhost:8080',
         ws: true,
         changeOrigin: true,
+        // IMPORTANT: For ALB compatibility
+        headers: {
+          'X-Forwarded-Proto': 'http'
+        }
       },
       '/api': {
         target: 'http://localhost:8080',
@@ -80,10 +84,10 @@ export const getWebSocketUrl = (params?: {
   
   // Handle relative path for EC2 proxy
   if (config.services.websocket.baseUrl === '/ws') {
-    // Use same protocol as the page to avoid mixed content errors
-    // If page is HTTPS, use wss:// (ALB will handle SSL termination)
-    // If page is HTTP, use ws://
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+    // IMPORTANT: For ALB, we need to use HTTP polling fallback
+    // ALB has issues with WebSocket upgrade from HTTPS to WS backend
+    // Solution: Let the WebSocket library handle the protocol
+    const protocol = window.location.protocol.replace('http', 'ws')  // https: -> wss:, http: -> ws:
     const host = window.location.host
     const path = config.services.websocket.callCenterPath || '/call-center'
     const baseUrl = `${protocol}//${host}/ws${path}`
@@ -221,28 +225,51 @@ After deployment, test these endpoints from your browser:
 3. Search functionality should work (already confirmed working)
 4. AI service calls should go through `/api`
 
+## ALB Configuration for WebSocket Support
+
+Since you're using ALB, you need to configure it properly for WebSocket:
+
+### ALB Target Group Settings:
+1. **Protocol**: HTTP (not HTTPS)
+2. **Port**: 5173
+3. **Health check path**: `/health.txt`
+4. **Stickiness**: Enabled (1 day duration)
+5. **Deregistration delay**: 30 seconds
+
+### ALB Listener Rules:
+1. **Protocol**: HTTPS (443) → HTTP Target Group
+2. **Path patterns**: 
+   - `/ws/*` → Forward to target group (WebSocket)
+   - `/*` → Forward to target group (Everything else)
+
 ## Troubleshooting
 
-### WebSocket Issues
+### WebSocket Issues with ALB
 
 **If you see 500 error on WebSocket connection:**
 
-This happens when ALB tries to upgrade to WSS but backend doesn't support SSL. Solutions:
+This is common with ALB + WebSocket. The issue is HTTPS→HTTP WebSocket upgrade. Solutions:
 
-1. **Option A: Use HTTP-only access (Recommended for testing)**
-   - Access the site via `http://<EC2-IP>:5173` directly
-   - This bypasses ALB and uses plain WebSocket
+1. **Solution A: Use regular HTTP polling as fallback**
+   Instead of WebSocket, configure the app to use HTTP long polling:
+   ```javascript
+   // In your WebSocket connection code, add fallback
+   const ws = new WebSocket(wsUrl)
+   ws.onerror = () => {
+     // Fallback to HTTP polling
+     useHttpPolling()
+   }
+   ```
 
-2. **Option B: Configure ALB for WebSocket properly**
-   - In ALB Target Group settings:
-     - Set stickiness to enabled (WebSocket needs persistent connections)
-     - Set protocol to HTTP (not HTTPS) for the target
-   - In ALB Listener rules:
-     - Forward to target group using HTTP protocol
+2. **Solution B: Use Application Load Balancer WebSocket support**
+   - ALB supports WebSocket but needs proper configuration
+   - Make sure Target Group uses HTTP protocol (not HTTPS)
+   - Enable stickiness for persistent connections
+   - Check ALB access logs for upgrade failures
 
-3. **Option C: Use a different path for WebSocket that bypasses upgrade**
-   - Some ALBs have issues with WebSocket upgrade
-   - Try using a different path like `/websocket` instead of `/ws`
+3. **Solution C: Use a dedicated WebSocket path**
+   - Configure ALB with a specific rule for `/ws/*` path
+   - Set that rule to forward with WebSocket upgrade headers preserved
 
 **If WebSocket still doesn't connect:**
 - Check that port 8080 service is running locally on EC2
