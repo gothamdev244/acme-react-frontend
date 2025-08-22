@@ -78,10 +78,12 @@ export const getWebSocketUrl = (params?: {
 }): string => {
   const config = getAppConfig()
   
-  // Handle relative path for EC2 proxy (NO HTTPS/WSS)
+  // Handle relative path for EC2 proxy
   if (config.services.websocket.baseUrl === '/ws') {
-    // Always use ws:// (no wss since no certificates)
-    const protocol = 'ws:'
+    // Use same protocol as the page to avoid mixed content errors
+    // If page is HTTPS, use wss:// (ALB will handle SSL termination)
+    // If page is HTTP, use ws://
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
     const host = window.location.host
     const path = config.services.websocket.callCenterPath || '/call-center'
     const baseUrl = `${protocol}//${host}/ws${path}`
@@ -221,14 +223,39 @@ After deployment, test these endpoints from your browser:
 
 ## Troubleshooting
 
-If WebSocket doesn't connect:
+### WebSocket Issues
+
+**If you see 500 error on WebSocket connection:**
+
+This happens when ALB tries to upgrade to WSS but backend doesn't support SSL. Solutions:
+
+1. **Option A: Use HTTP-only access (Recommended for testing)**
+   - Access the site via `http://<EC2-IP>:5173` directly
+   - This bypasses ALB and uses plain WebSocket
+
+2. **Option B: Configure ALB for WebSocket properly**
+   - In ALB Target Group settings:
+     - Set stickiness to enabled (WebSocket needs persistent connections)
+     - Set protocol to HTTP (not HTTPS) for the target
+   - In ALB Listener rules:
+     - Forward to target group using HTTP protocol
+
+3. **Option C: Use a different path for WebSocket that bypasses upgrade**
+   - Some ALBs have issues with WebSocket upgrade
+   - Try using a different path like `/websocket` instead of `/ws`
+
+**If WebSocket still doesn't connect:**
 - Check that port 8080 service is running locally on EC2
 - Verify .env file has correct values
-- Check browser console for connection errors
+- Check browser console for specific error messages
+- Try accessing `http://<EC2-IP>:8080/health` directly to verify service is up
+
+### AI Service Issues
 
 If AI service doesn't work:
 - Verify port 8000 service is running locally on EC2
 - Check that `/api` proxy is correctly configured
+- Test directly: `curl http://localhost:8000/health` on EC2
 
 ## File Changes Summary
 
